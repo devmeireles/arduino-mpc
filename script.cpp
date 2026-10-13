@@ -1,5 +1,6 @@
 
 const int BUZZER_PIN = 10;
+const int DJ_LED_PIN = 11;
 
 const int BUTTON_DO = 2;
 const int BUTTON_RE = 3;
@@ -167,6 +168,7 @@ const int funk90MelodyLength =
 void setup()
 {
     pinMode(BUZZER_PIN, OUTPUT);
+    pinMode(DJ_LED_PIN, OUTPUT);
 
     pinMode(BUTTON_DO, INPUT_PULLUP);
     pinMode(BUTTON_RE, INPUT_PULLUP);
@@ -176,6 +178,8 @@ void setup()
     pinMode(BUTTON_LA, INPUT_PULLUP);
     pinMode(BUTTON_SI, INPUT_PULLUP);
     pinMode(BUTTON_DJ, INPUT_PULLUP);
+
+    digitalWrite(DJ_LED_PIN, LOW);
 
     Serial.begin(9600);
 
@@ -188,6 +192,8 @@ void loop()
     handleModeButton();
 
     bool currentDoButtonState = digitalRead(BUTTON_DO);
+    digitalWrite(DJ_LED_PIN, djMode ? HIGH : LOW);
+
     bool doButtonPressed =
         previousDoButtonState == HIGH &&
         currentDoButtonState == LOW;
