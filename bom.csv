@@ -1,0 +1,5 @@
+﻿Nome,Quantidade,Componente
+"6",1," Placa de ensaio"
+"SDO_BTN, SRE_BTN, SMI_BTN, SFA_BTN, SSOL_BTN, SLA_BTN, SMI_BTN1, SDJ_MODE_BTN",8," Botão"
+"PIEZOBUZZER_SOUND",1," Piezo"
+"UMPC_BRAIN",1," Arduino Uno R3"
