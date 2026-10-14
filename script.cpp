@@ -21,8 +21,6 @@ const int NOTE_SI = 494;
 
 bool djMode = false;
 bool previousDjButtonState = HIGH;
-bool previousDoButtonState = HIGH;
-bool previousReButtonState = HIGH;
 
 const int marioMelody[] = {
     659, 659, 659, 0,
@@ -191,25 +189,11 @@ void loop()
 {
     handleModeButton();
 
-    bool currentDoButtonState = digitalRead(BUTTON_DO);
     digitalWrite(DJ_LED_PIN, djMode ? HIGH : LOW);
-
-    bool doButtonPressed =
-        previousDoButtonState == HIGH &&
-        currentDoButtonState == LOW;
-
-    previousDoButtonState = currentDoButtonState;
-
-    bool currentReButtonState = digitalRead(BUTTON_RE);
-    bool reButtonPressed =
-        previousReButtonState == HIGH &&
-        currentReButtonState == LOW;
-
-    previousReButtonState = currentReButtonState;
 
     if (djMode)
     {
-        handleDjMode(doButtonPressed, reButtonPressed);
+        handleDjMode();
     }
     else
     {
@@ -277,9 +261,9 @@ void handlePianoMode()
     }
 }
 
-void handleDjMode(bool doButtonPressed, bool reButtonPressed)
+void handleDjMode()
 {
-    if (doButtonPressed)
+    if (digitalRead(BUTTON_DO) == LOW)
     {
         Serial.println("Reproduzindo tema do Mario...");
         playMelody(
@@ -288,7 +272,7 @@ void handleDjMode(bool doButtonPressed, bool reButtonPressed)
             marioMelodyLength);
         Serial.println("Melodia finalizada.");
     }
-    else if (reButtonPressed)
+    else if (digitalRead(BUTTON_RE) == LOW)
     {
         Serial.println("Reproduzindo tema do Sonic...");
         playMelody(
